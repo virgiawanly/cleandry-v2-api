@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->boolean('is_active')->default(1);
             $table->boolean('is_owner')->default(0);
+            $table->timestamp('last_login_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
