@@ -19,15 +19,6 @@ class RegistrationService
         try {
             DB::beginTransaction();
 
-            $user = User::create([
-                'name' => $request->name,
-                'username' => $request->username,
-                'email' => $request->email,
-                'phone' => $request->phone,
-                'password' => bcrypt($request->password),
-                'is_owner' => 1,
-            ]);
-
             $companyImage = null;
             if ($request->hasFile('company_logo')) {
                 $companyImage = $request->file('company_logo')->store('companies');
@@ -41,12 +32,22 @@ class RegistrationService
                 'logo' => $companyImage,
             ]);
 
-            Outlet::withoutCompanyScope()->create([
+            $outlet =  Outlet::withoutCompanyScope()->create([
                 'company_id' => $company->id,
                 'name' => $request->outlet_name,
                 'address' => $request->outlet_address,
                 'email' => $request->outlet_email,
                 'phone' => $request->outlet_phone,
+            ]);
+
+            $user = User::create([
+                'company_id' => $company->id,
+                'outlet_id' => $outlet->id,
+                'name' => $request->name,
+                'username' => $request->username,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'password' => bcrypt($request->password),
             ]);
 
             DB::commit();

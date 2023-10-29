@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\ServiceTypeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,4 +25,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware('guest')->group(function () {
     Route::post('login', [AuthController::class, 'login']);
     Route::post('register', [RegistrationController::class, 'register']);
+});
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResource('service-types', ServiceTypeController::class);
+    Route::apiResource('services', ServiceController::class);
+
+    Route::post('switch-outlet', [AuthController::class, 'switchOutlet']);
 });
