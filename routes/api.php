@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ExtraController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ServiceTypeController;
@@ -32,6 +33,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('service-types', ServiceTypeController::class);
     Route::apiResource('services', ServiceController::class);
     Route::apiResource('customers', CustomerController::class);
+    Route::apiResource('extras', ExtraController::class);
 
     Route::post('switch-outlet', [AuthController::class, 'switchOutlet']);
 });

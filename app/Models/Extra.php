@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Service extends BaseModel
+class Extra extends BaseModel
 {
     use HasFactory, SoftDeletes, ScopedCompanyOutlet;
 
@@ -15,16 +15,13 @@ class Service extends BaseModel
      * The attributes that are mass assignable.
      */
     protected $fillable = [
+        'company_id',
+        'outlet_id',
         'name',
         'description',
         'price',
-        'service_type_id',
-        'company_id',
-        'outlet_id',
         'image',
-        'estimated_time',
-        'estimated_time_unit',
-        'is_active',
+        'is_active'
     ];
 
     /**
